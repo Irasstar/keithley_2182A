@@ -14,7 +14,11 @@ class KeythleyApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.pushButton.clicked.connect(self.button_clicked)
 
     def button_clicked(self):
-        self.label_2.setText('1234')
+        rm = pyvisa.ResourceManager()
+        inst = rm.open_resource('GPIB0::07::INSTR')
+        inst.query(":SENS:CHAN 2")
+        # print(idn)
+        # self.label_2.setText(str(idn))
 
 
 def run_app():
@@ -25,6 +29,5 @@ def run_app():
 
 
 if __name__ == "__main__":
-    # run_app()
-    rm = pyvisa.ResourceManager()
-    print(rm.list_resources())
+    run_app()
+
